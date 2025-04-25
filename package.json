@@ -1,0 +1,39 @@
+{
+  "name": "privilee-test",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test:ui": "npx playwright test --project='UI Tests'",
+    "test:api": "newman run tests/api-tests/tests.postman_collection.json",
+    "test:all": "npm run test:api && npm run test:ui"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "🚀 Getting Started",
+  "devDependencies": {
+    "@cucumber/cucumber": "^11.2.0",
+    "@cucumber/pretty-formatter": "^1.0.1",
+    "@faker-js/faker": "^9.7.0",
+    "@playwright/test": "^1.52.0",
+    "newman": "^6.2.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "faker": "^5.5.3"
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LiviaGitHub/privilee-test.git"
+  },
+  "bugs": {
+    "url": "https://github.com/LiviaGitHub/privilee-test/issues"
+  },
+  "homepage": "https://github.com/LiviaGitHub/privilee-test#readme"
+}

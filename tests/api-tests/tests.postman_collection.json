@@ -1,0 +1,307 @@
+{
+  "info": {
+    "_postman_id": "38c6de53-9a56-4c8b-ab91-f58d424751b8",
+    "name": "tests.postman_collection",
+    "description": "tests.postman_collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "1334981",
+    "_collection_link": "https://www.postman.com/api-testing-4053/workspace/api-testing/collection/1334981-38c6de53-9a56-4c8b-ab91-f58d424751b8?action=share&source=collection_link&creator=1334981"
+  },
+  "item": [
+    {
+      "name": "Create a new user",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "let timestamp = Date.now();",
+              "let isFemale = Math.random() > 0.5;",
+              "let status = Math.random() > 0.5 ? 'active' : 'inactive';",
+              "let user = {",
+              "  name: `TestUser${timestamp}`,",
+              "  email: `user${timestamp}@example.com`,",
+              "  gender: isFemale ? 'female' : 'male',",
+              "  status: status",
+              "};",
+              "pm.environment.set(\"randomUser\", JSON.stringify(user));"
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Should return 201 - User successfully created\", function () {",
+              "    pm.response.to.have.status(201);",
+              "});",
+              "pm.test(\"Response body should contain all expected user properties\", function () {",
+              "    const jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.have.property('id');",
+              "    pm.expect(jsonData).to.have.property('name');",
+              "    pm.expect(jsonData).to.have.property('email');",
+              "    pm.expect(jsonData).to.have.property('gender');",
+              "    pm.expect(jsonData).to.have.property('status');",
+              "});",
+              "pm.test(\"Response time should be under 5000ms\", function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(5000);",
+              "});",
+              "pm.test(\"Content-Type is application/json\", function () {",
+              "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.match(/^application\\/json/);",
+              "});",
+              "pm.test(\"'email' should contain @\", function () {",
+              "    const jsonData = pm.response.json();",
+              "    pm.expect(jsonData.email).to.include('@');",
+              "});",
+              "pm.test(\"'status' should be either active or inactive\", function () {",
+              "    const jsonData = pm.response.json();",
+              "    pm.expect(['active', 'inactive']).to.include(jsonData.status);",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{privateToken}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "{{token}}",
+            "type": "text"
+          },
+          {
+            "key": "",
+            "value": "",
+            "type": "text",
+            "disabled": true
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{{randomUser}}\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseURL}}/users",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "users"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get user details",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Should return status code 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Response body should be an array\", function () {",
+              "    const jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.be.an('array');",
+              "});",
+              "pm.test(\"Each post should contain all expected properties\", function () {",
+              "    const jsonData = pm.response.json();",
+              "    jsonData.forEach(post => {",
+              "        pm.expect(post).to.have.property('id');",
+              "        pm.expect(post).to.have.property('user_id');",
+              "        pm.expect(post).to.have.property('title');",
+              "        pm.expect(post).to.have.property('body');",
+              "    });",
+              "});",
+              "pm.test(\"Each 'id' should be a number\", function () {",
+              "    const jsonData = pm.response.json();",
+              "    jsonData.forEach(post => {",
+              "        pm.expect(post.id).to.be.a('number');",
+              "    });",
+              "});",
+              "pm.test(\"Response time should be under 5000ms\", function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(5000);",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseURL}}/posts",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "posts"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Retrieves user posts",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Should return status code 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Should return an empty array\", function () {",
+              "    const jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.be.an('array').that.is.empty;",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{privateToken}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "{{token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{baseURL}}/users/7373665/posts",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "users",
+            "7373665",
+            "posts"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Retrieves user todos",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Should return status code 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Each task should have required properties\", function () {",
+              "    const jsonData = pm.response.json();",
+              "    jsonData.forEach(task => {",
+              "        pm.expect(task).to.have.property(\"id\");",
+              "        pm.expect(task).to.have.property(\"user_id\");",
+              "        pm.expect(task).to.have.property(\"title\");",
+              "        pm.expect(task).to.have.property(\"due_on\");",
+              "        pm.expect(task).to.have.property(\"status\");",
+              "    });",
+              "});",
+              "pm.test(\"Status should be 'pending' or 'completed'\", function () {",
+              "    const jsonData = pm.response.json();",
+              "    jsonData.forEach(task => {",
+              "        pm.expect([\"pending\", \"completed\"]).to.include(task.status);",
+              "    });",
+              "});",
+              "pm.test(\"Due date should be in the future\", function () {",
+              "    const jsonData = pm.response.json();",
+              "    const now = new Date();",
+              "    jsonData.forEach(task => {",
+              "        const dueDate = new Date(task.due_on);",
+              "        pm.expect(dueDate > now).to.be.true;",
+              "    });",
+              "});",
+              "pm.test(\"Response time should be under 5000ms\", function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(5000);",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{privateToken}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "{{token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{baseURL}}/todos",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "todos"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseURL",
+      "value": "https://gorest.co.in/public/v2",
+      "type": "default"
+    },
+    {
+      "key": "privateToken",
+      "value": "e914f5bb258b79e4e313562f806eb07ae138fccb04bc06bd8bbc6054560edd65",
+      "type": "default"
+    }
+  ]
+}
