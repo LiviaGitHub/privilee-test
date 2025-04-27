@@ -84,7 +84,7 @@ privilee-test/
 │   ├── playwright-tests/
 │   │   └── map-page/
 │   │       └── *.spec.js (UI Test files)
-            └── *.md 
+│   │         └── *.md 
 │   └── api-tests/
 │       └── tests.postman_collection.json 
 │       └── api-test-overview.md
