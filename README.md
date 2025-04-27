@@ -87,7 +87,7 @@ privilee-test/
             └── *.md 
 │   └── api-tests/
 │       └── tests.postman_collection.json 
-│       └── api-task-planning.md
+│       └── api-test-overview.md
 ├── playwright.config.js
 ├── package.json
 ```
