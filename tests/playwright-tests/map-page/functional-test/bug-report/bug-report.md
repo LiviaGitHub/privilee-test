@@ -21,6 +21,7 @@
   - **Browser**: [e.g., Chrome 124]
   - **Device**: [e.g., MacBook Pro]
   - **Img ID**: [`ZtBL2BEAACIAIvG3`]
+  - **Bug severity**: Medium, as it affects user experience, but does not block major functionality.
 
 - **Attachments**:  
-  ![screenshoto](tests/playwright-tests/map-page/functional-test/bug-report/empty-img.png)
+  ![screenshot](tests/playwright-tests/map-page/functional-test/bug-report/empty-img.png)

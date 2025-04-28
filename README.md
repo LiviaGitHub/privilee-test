@@ -101,4 +101,5 @@ privilee-test/
 - Test artifacts include **screenshots**, and **HTML reports** (only generated for failed tests when needed).
 - After running the tests in the console, **npx playwright show-report** will be displayed so you can run and view the test report.
 - CI workflows are configured in `.github/workflows/` folder.
-- I added a bug in `functional-test`
+- Added a bug report in `functional-test`.
+- Added a test-case-exemple in `functional-test`.
