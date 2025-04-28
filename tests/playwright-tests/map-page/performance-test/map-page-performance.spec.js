@@ -4,7 +4,7 @@ test.describe("Map Page - Performance Validation", () => {
   test("Should load the map page within an acceptable time and resource limits", async ({ page }) => {
     const startTime = Date.now();
 
-    // Start tracing network activity BEFORE navigation
+    // Start tracing network activity before navigation
     const requests = [];
     const failedRequests = [];
 
@@ -26,7 +26,7 @@ test.describe("Map Page - Performance Validation", () => {
 
     // Check number of loaded resources
     console.log(`Total requests made: ${requests.length}`);
-    await expect(requests.length).toBeLessThan(150); // ajusta se precisar
+    await expect(requests.length).toBeLessThan(150);
 
     // Check that map container is visible
     await expect(page.locator('div[class*="mapboxgl-map"]')).toBeVisible();

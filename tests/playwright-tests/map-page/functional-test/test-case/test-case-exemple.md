@@ -1,7 +1,7 @@
 ### **Test Case: Check Venue that Requires Annual Subscription**
 
 #### **Test Case ID:**
-TC-WP-002
+TC-WP-001
 
 #### **Objective:**
 Ensure that venues requiring an annual subscription are properly displayed with a lock icon, which should be overlaid with transparency, indicating subscription-only access on the map page.
