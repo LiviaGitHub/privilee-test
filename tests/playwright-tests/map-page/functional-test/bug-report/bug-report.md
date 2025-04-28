@@ -23,4 +23,4 @@
   - **Img ID**: [`ZtBL2BEAACIAIvG3`]
 
 - **Attachments**:  
-  ![screenshoto](.empty-img.png)
+  ![screenshoto](tests/playwright-tests/map-page/functional-test/bug-report/empty-img.png)
