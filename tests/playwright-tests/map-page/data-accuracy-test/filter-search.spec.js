@@ -16,10 +16,8 @@ test.describe("Filter search", () => {
     await expect(resultsName).toBeVisible();
 
     await page.locator("button", { hasText: "Dubai" }).click();
-    const showButton = await page.locator("button", { hasText: /Show \d+ venues/ });
-    const buttonText = await showButton.textContent();
 
-    const numberOfResults = parseInt(buttonText.match(/\d+/)[0]);
+    const showButton = await page.locator("button", { hasText: /Show \d+ venues/ });
     await showButton.click();
     
     const venueResults = page.locator('[data-item-id]');
