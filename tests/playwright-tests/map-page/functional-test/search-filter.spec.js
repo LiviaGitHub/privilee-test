@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { openFilterModal } from '../../support/openFilterModal.js';
+import { openFilterModal } from '../../utils/openFilterModal.js';
 
 test.describe("Filters search", () => {
   test.beforeEach(async ({ page }) => {
@@ -7,7 +7,7 @@ test.describe("Filters search", () => {
     await page.waitForLoadState('networkidle');
   });
   
-  test("Venue search returns no results and shows appropriate message", async ({ page }) => {
+  test("User applies filter and returns no results, an appropriate message is displayed", async ({ page }) => {
     const button = page.locator('button', { hasText: 'Pool & beach' });
     const isSelected = await button.getAttribute('selected');
     if (!isSelected) {
@@ -25,7 +25,7 @@ test.describe("Filters search", () => {
     await expect(page.locator('text=Start over and show all venues')).toBeVisible();
   });
 
-  test("Venue search returns dynamic results based on filter and shows appropriate message", async ({ page }) => {
+  test("User applies the filter and returns results based on the filter, a message is displayed with the correct number of matching locations", async ({ page }) => {
     await expect(page.locator("button", { hasText: "Dining" })).toBeVisible();
 
     await page.locator("button", { hasText: "Dining" }).click(); 
@@ -41,7 +41,7 @@ test.describe("Filters search", () => {
     const numberOfResults = parseInt(buttonText.match(/\d+/)[0]);
 
     await showButton.click();
-    await page.locator("h3", { hasText: numberOfResults + "dining discounts" });
+    await expect(page.locator("h3", { hasText: `${numberOfResults} dining discounts` })).toBeVisible();
 
     await expect(page.locator('text=Start over and show all venues')).not.toBeVisible();
   });

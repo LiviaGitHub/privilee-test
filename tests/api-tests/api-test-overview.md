@@ -16,7 +16,7 @@ The following overview reflects my understanding of each API endpoint, to suppor
 
 ---
 
-### Problem
+### Issue
 
 I encountered a token error and had to create a new environment. After exporting the environment, there was an issue with the host configuration.
 
@@ -43,10 +43,6 @@ Should be simplified to:
   "raw": "{{baseURL}}/users"
 }
 ```
-In other words, the complete URL was already being constructed in the `raw` field, so there was no need to pass the host or path separately. Once this was adjusted, Newman was able to correctly identify the target URL.
+The complete URL was already being constructed in the `raw` field, so there was no need to pass the host or path separately. Once this was adjusted, Newman was able to correctly identify the target URL.
 
 The failure occurred because the configuration of the host and path was causing the URL to be interpreted incorrectly, resulting in errors like `request URL is empty.` After the correction, the URL became simpler and more direct, resolving the issue.
-
----
-
-### Token

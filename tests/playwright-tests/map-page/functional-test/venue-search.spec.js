@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { submitUserForm } from '../../support/submitUserForm.js';
+import { submitUserForm } from '../../utils/submitUserForm.js';
 
 test.describe("Venue Search", () => {
   test.beforeEach(async ({ page }) => {
