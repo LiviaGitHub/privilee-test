@@ -21,8 +21,6 @@ test.describe("Filter search", () => {
 
     const numberOfResults = parseInt(buttonText.match(/\d+/)[0]);
     await showButton.click();
-
-    await page.locator("h3", { hasText: numberOfResults + "dining discounts" });
     
     const venueResults = page.locator('[data-item-id]');
     const results = await venueResults.allTextContents();
