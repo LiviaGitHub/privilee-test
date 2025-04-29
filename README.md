@@ -52,12 +52,7 @@ npx playwright install
 
 | Command | Description |
 |:--------|:------------|
-| `npx playwright test` | Run all UI tests |
-
-```bash
-npm run test:all
-```
----
+| `npm run test:all` | 
 
 ## CI/CD Integration with GitHub Actions
 
